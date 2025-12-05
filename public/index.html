@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Whisper App - Audio Transcription & Chat</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="app-header">
+        <h1 class="main-title">Azure OpenAI Whisper</h1>
+    </header>
+    
+    <div class="app-container">
+        <!-- Left Panel - 30% width -->
+        <div class="left-panel">
+            <!-- Upload Section - Top Left -->
+            <div class="upload-section">
+                <h2>Audio Upload</h2>
+                <div class="upload-container">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-icon"></div>
+                        <div class="upload-text">Drag & drop audio files</div>
+                        <div class="upload-subtext">or click to select</div>
+                        <div class="upload-formats">.wav, .mp3 (max 50MB)</div>
+                    </div>
+                    <div class="file-history">
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Search transcripts..." class="search-input">
+                            <button id="clearSearch" class="clear-search">×</button>
+                        </div>
+                        <div class="file-list" id="fileList">
+                            <div class="no-files">No files uploaded yet</div>
+                        </div>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" accept=".wav,.mp3,audio/*" style="display: none;">
+                <div class="upload-status" id="uploadStatus"></div>
+            </div>
+            
+            <!-- Audio Player Section - Middle Left -->
+            <div class="audio-player-section" id="audioPlayerSection">
+                <h2>Audio Player</h2>
+                <div class="audio-player-container">
+                    <div class="audio-info" id="audioInfo">
+                        <div class="file-name" id="fileName">No file loaded</div>
+                        <div class="file-details" id="fileDetails">Upload an audio file to see details here</div>
+                    </div>
+                    <audio controls id="audioPlayer" class="audio-controls">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+            
+            <!-- Transcript Section - Bottom Left -->
+            <div class="transcript-section">
+                <h2>Transcription</h2>
+                <div class="transcript-content" id="transcriptContent">
+                    <div class="transcript-placeholder">
+                        Upload an audio file to see the transcription here...
+                    </div>
+                </div>
+                <div class="transcript-actions" id="transcriptActions" style="display: none;">
+                    <button class="btn-copy" onclick="copyTranscript()">Copy Text</button>
+                    <button class="btn-clear" onclick="clearTranscript()">Clear</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Panel - 65% width -->
+        <div class="right-panel">
+            <div class="chat-section">
+                <h2>Chat with Your Data</h2>
+                <div class="chat-messages" id="chatMessages">
+                </div>
+                <div class="chat-input-container">
+                    <div class="chat-input-wrapper">
+                        <textarea 
+                            id="chatInput" 
+                            placeholder="Ask questions about your transcribed audio..."
+                            rows="3"
+                            disabled
+                        ></textarea>
+                        <button id="sendButton" class="btn-send" onclick="sendMessage()" disabled>
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text">Transcribing audio...</div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
